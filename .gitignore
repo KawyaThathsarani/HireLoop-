@@ -1,0 +1,26 @@
+#python virtual environment
+venv/
+.venv/
+
+#python cache
+__pycache__/
+*.py[cod]
+
+#environment variables 
+.env
+*.env
+
+#vscode
+.vscode/
+
+#testing
+.pytest_cache/
+.coverage
+
+#react native / node
+node_modules/
+dist/
+
+#os files
+.DS_Store
+Thumbs.db

@@ -2,8 +2,9 @@ from fastapi import FastAPI
 # import our database session creator. This lets main.py talk to PostgreSQL
 from sqlalchemy import text
 
-from app.database import SessionLocal  # import database session creator
-from app.models import text
+# import database session creator
+from app.database import SessionLocal, Base, engine
+from app.models import Application, Candidate, Job
 
 app = FastAPI(
     title="HireLoop API",
@@ -18,12 +19,12 @@ Base.metadata.create_all(bind=engine)
 
 
 @app.get("/")
-def root() -> dict:
+def root() -> dict[str, str]:
     return {"message": "Welcome to HireLoop API!"}
 
 
 @app.get("/health")  # health check route creation
-def health_check() -> dict:
+def health_check() -> dict[str, str]:
     return {"status": "healthy"}
 
 

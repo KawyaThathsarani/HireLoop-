@@ -1,14 +1,14 @@
 import os
-from collections import Generator
+from collections.abc import Generator
 
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
-lozad_dotenv()
+load_dotenv()
 
 Database_URL = os.getenv("DATABASE_URL")
-if not DATABASE_URL:
+if not Database_URL:
     raise RuntimError(
         "DATABASE_URL is not confugured. Please set the DATABASE_URL environment variable in your .env file."
     )

@@ -1,6 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field
-from app.enuums import JobStatus
+from app.enums import JobStatus
 
 
 class JobCreate(BaseModel):
@@ -21,7 +21,7 @@ class JobResponse(BaseModel):
         from_attributes=True
     )
 
-    id = int
+    id: int
     title: str
     department: str
     status: JobStatus

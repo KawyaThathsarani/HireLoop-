@@ -7,7 +7,7 @@ class ApplicationCreate(BaseModel):
     candidate_id: int
     job_id: int
 
-    current_stage: ApplicationStage = (
+    current_stage: ApplicationStatus = (
         ApplicationStage.APPLIED
     )
 
@@ -21,9 +21,9 @@ class ApplicationResponse(BaseModel):
         from_attributes=True
     )
 
-    id = int
+    id: int
     candidate_id: int
-    job_id = int
+    job_id: int
     current_stage: ApplicationStage
     status: ApplicationStatus
     last_communication_at: datetime | None

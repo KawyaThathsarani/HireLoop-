@@ -5,6 +5,7 @@ from sqlalchemy import text
 # import database session creator
 from app.database import SessionLocal, Base, engine
 from app.models import Application, Candidate, Job
+from app.routers import application, candidate, job
 
 app = FastAPI(
     title="HireLoop API",
@@ -16,6 +17,9 @@ app = FastAPI(
 Base.metadata.create_all(bind=engine)
 
 # home api route creation when we get in to the home it shows this message
+app.include_router(candidate.router)
+app.include_router(job.router)
+app.include_router(application.router)
 
 
 @app.get("/")

@@ -1,8 +1,8 @@
 # schemas for request response structure creating purpose
 # mainly use for the APIs
 from datetime import datetime
-from pydanthic import BaseModel, ConfigDict, EmailStr, Field
-# Pydanthic used for data validation and serialiation
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
+# Pydantic used for data validation and serialiation
 
 
 class CandidateCreate(BaseModel):  # controls what the API sends back.
@@ -13,7 +13,7 @@ class CandidateCreate(BaseModel):  # controls what the API sends back.
 
     email: EmailStr  # This checks whether the email looks like a real email.
 
-    phone: str | None = Feild(
+    phone: str | None = Field(
         default=None,
         max_length=30,
     )
@@ -27,6 +27,6 @@ class CandidateResponse(BaseModel):
 
     id: int
     name: str
-    email = EmailStr
+    email: EmailStr
     phone: str | None
     created_at: datetime

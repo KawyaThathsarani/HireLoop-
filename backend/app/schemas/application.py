@@ -16,14 +16,18 @@ class ApplicationCreate(BaseModel):
     )
 
 
+class ApplicationStageUpdate(BaseModel):
+    current_stage: ApplicationStage
+
+
 class ApplicationResponse(BaseModel):
     model_config = ConfigDict(
         from_attributes=True
     )
 
-    id = int
+    id: int
     candidate_id: int
-    job_id = int
+    job_id: int
     current_stage: ApplicationStage
     status: ApplicationStatus
     last_communication_at: datetime | None

@@ -27,7 +27,7 @@ class Application(Base):
         index=True,
     )
 
-    current_status: Mapped[str] = mapped_column(
+    current_stage: Mapped[str] = mapped_column(
         String(50),
         default=ApplicationStage.APPLIED.value,
         nullable=False,
@@ -51,7 +51,7 @@ class Application(Base):
         nullable=False,
     )
 
-    update_at: Mapped[datetime] = mapped_column(
+    updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
         onupdate=func.now(),

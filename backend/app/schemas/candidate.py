@@ -2,7 +2,7 @@
 # mainly use for the APIs
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
-# Pydanthic used for data validation and serialiation
+# Pydantic used for data validation and serialiation
 
 
 class CandidateCreate(BaseModel):  # controls what the API sends back.

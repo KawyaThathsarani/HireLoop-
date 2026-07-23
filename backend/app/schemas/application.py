@@ -7,13 +7,17 @@ class ApplicationCreate(BaseModel):
     candidate_id: int
     job_id: int
 
-    current_stage: ApplicationStatus = (
+    current_stage: ApplicationStage = (
         ApplicationStage.APPLIED
     )
 
     status: ApplicationStatus = (
         ApplicationStatus.ACTIVE
     )
+
+
+class ApplicationStageUpdate(BaseModel):
+    current_stage: ApplicationStage
 
 
 class ApplicationResponse(BaseModel):

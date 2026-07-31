@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -8,6 +8,8 @@ from app.schemas.application import ApplicationCreate, ApplicationResponse, Appl
 from app.models.candidate import Candidate
 from app.models.job import Job
 from app.enums import ApplicationStage, ApplicationStatus
+from app.models.stage_history import StageHistory
+from app.schemas.stage_history import StageHistoryResponse
 
 router = APIRouter(
     prefix="/api/applications",
@@ -82,8 +84,24 @@ def update_application_stage(
         application_id,
     )
 
+    if application is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Application not found.",
+        )
+
+    old_stage = application.current_stage
     new_stage = stage_data.current_stage
+
     application.current_stage = new_stage.value
+
+    stage_history = StageHistory(
+        application_id=application.id,
+        old_stage=old_stage,
+        new_stage=new_stage.value,
+    )
+
+    db.add(stage_history)
 
     if new_stage == ApplicationStage.SELECTED:
         application.status = ApplicationStatus.SELECTED.value
@@ -98,3 +116,31 @@ def update_application_stage(
     db.refresh(application)
 
     return application
+
+
+@router.get(
+    "/{application_id}/stage-history",
+    response_model=list[StageHistoryResponse],
+)
+def get_application_stage_history(
+    application_id: int,
+    db: Session = Depends(get_db),
+) -> list[StageHistory]:
+    application = db.get(
+        Application,
+        application_id,
+    )
+
+    if application is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Application not found.",
+        )
+
+    history = db.scalars(
+        select(StageHistory)
+        .where(StageHistory.application_id == application_id)
+        .order_by(StageHistory.changed_at)
+    ).all()
+
+    return list(history)

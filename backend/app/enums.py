@@ -21,3 +21,15 @@ class ApplicationStatus(str, Enum):
     SELECTED = "SELECTED"
     REJECTED = "REJECTED"
     WITHDRAWN = "WITHDRAWN"
+
+
+class CommunicationType(str, Enum):
+    EMAIL = "EMAIL",
+    PHONE = "PHONE",
+    NOTE = "NOTE"
+
+
+class CommunicationStatus(str, Enum):
+    DRAFT = "DRAFT",
+    SENT = "SENT",
+    FAILED = "FAILED"

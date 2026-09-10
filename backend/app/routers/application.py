@@ -10,6 +10,8 @@ from app.models.job import Job
 from app.enums import ApplicationStage, ApplicationStatus
 from app.models.stage_history import StageHistory
 from app.schemas.stage_history import StageHistoryResponse
+from app.schemas.risk import CommunicationRiskResponse
+from app.services.risk_service import calculate_communication_risk
 
 router = APIRouter(
     prefix="/api/applications",
@@ -144,3 +146,25 @@ def get_application_stage_history(
     ).all()
 
     return list(history)
+
+
+@router.get(
+    "/{application_id}/communication-risk",
+    response_model=CommunicationRiskResponse,
+)
+def get_communication_risk(
+    application_id: int,
+    db: Session = Depends(get_db),
+):
+    application = db.get(
+        Application,
+        application_id,
+    )
+
+    if application is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Application not found.",
+        )
+
+    return calculate_communication_risk(application)

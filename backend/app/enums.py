@@ -33,3 +33,9 @@ class CommunicationStatus(str, Enum):
     DRAFT = "DRAFT",
     SENT = "SENT",
     FAILED = "FAILED"
+
+
+class CommunicationRiskLevel(str, Enum):
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"

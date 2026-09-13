@@ -5,12 +5,11 @@ from sqlalchemy import text
 # import database session creator
 from app.database import SessionLocal, Base, engine
 from app.models import Application, Candidate, Job
-from app.routers import application, candidate, communication_log, job
-
+from app.routers import application, candidate, communication_log, job, email
 
 app = FastAPI(
     title="HireLoop API",
-    description="Candidate communicationa and recruitment closure system",
+    description="Candidate communication and recruitment closure system",
     version="1.0"
 )
 
@@ -22,6 +21,7 @@ app.include_router(candidate.router)
 app.include_router(job.router)
 app.include_router(application.router)
 app.include_router(communication_log.router)
+app.include_router(email.router)
 
 
 @app.get("/")

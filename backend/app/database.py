@@ -9,7 +9,7 @@ load_dotenv()
 
 Database_URL = os.getenv("DATABASE_URL")
 if not Database_URL:
-    raise RuntimError(
+    raise RuntimeError(
         "DATABASE_URL is not confugured. Please set the DATABASE_URL environment variable in your .env file."
     )
 

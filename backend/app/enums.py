@@ -39,3 +39,11 @@ class CommunicationRiskLevel(str, Enum):
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
+
+
+class EmailTemplateType(str, Enum):
+    APPLICATION_RECEIVED = "APPLICATION_RECEIVED"
+    INTERVIEW_INVITATION = "INTERVIEW_INVITATION"
+    SELECTED = "SELECTED"
+    REJECTED = "REJECTED"
+    GENERAL_UPDATE = "GENERAL_UPDATE"
